@@ -7,7 +7,6 @@ from PIL import Image
 dhash.force_pil()
 
 
-
 os.system('cls' if os.name=='nt' else 'clear')
 
 parser = argparse.ArgumentParser();
@@ -19,12 +18,6 @@ parser.add_argument('-t', type=int, help='Tolerance of similarity detection, hig
 args = vars(parser.parse_args())
 ImageFolder = args['i']
 tol = args['t']
-
-COMPARE_PERCENTAGE = 23
-
-
-
-
 
 
 outdir = str(str(os.path.splitext(ImageFolder)[-1]) + "Duplicates");
@@ -53,7 +46,7 @@ while NotDone:
 		row, col = dhash.dhash_row_col(image)
 		CompareHash = dhash.format_hex(row, col)
 		CompareHash = "0x"+CompareHash
-		if(dhash.get_num_bits_different(int(BaseHash, 16), int(CompareHash, 16))<COMPARE_PERCENTAGE):
+		if(dhash.get_num_bits_different(int(BaseHash, 16), int(CompareHash, 16))<tol):
 			if(ListOfImages[j] not in ToMove):
 				ToMove.append(ListOfImages[j])
 		sys.stdout.write('\rComparing file %s with %s' % ((ListOfImages[i][ListOfImages[i].rfind("/")+1:]), (ListOfImages[j][ListOfImages[j].rfind("/")+1:])))
